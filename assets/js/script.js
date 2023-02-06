@@ -31,19 +31,33 @@ camera.position.z = 10;
 // camera.position.x = cameraX;
 camera.position.y = 0
 
+const raycaster = new THREE.Raycaster();
+const mouseMove = new THREE.Vector2();
+
+window.addEventListener("mousemove",(event)=>{
+	mouseMove.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	mouseMove.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+	raycaster.setFromCamera( mouseMove, camera );
+	const result = raycaster.intersectObjects( scene.children );
+	console.log(result);
+})
+
 function animate() {
 	requestAnimationFrame(animate);
 	renderer.render(scene, camera);
 }
 animate();
-canvas = section.children[1]
-canvas.addEventListener("mouseover",()=>{
-	console.log("hi");
-// gsap.to(bar.rotation,{duration: 2 ,x:360})
-gsap.to(bar.rotation,{duration: 200 ,y:360})
-// gsap.to(bar.rotation,{duration: 2 ,z:360})
-})
+// canvas = section.children[1]
+// canvas.addEventListener("mouseover",()=>{
+// 	console.log("hi");
+// // gsap.to(bar.rotation,{duration: 2 ,x:360})
+// gsap.to(bar.rotation,{duration: 200 ,y:360})
+// // gsap.to(bar.rotation,{duration: 2 ,z:360})
+// })
+
 }
+
 creat(initial)
 
 const button = document.createElement("button");
@@ -53,9 +67,10 @@ section.appendChild(button);
 button.addEventListener("click",()=>{
 	initial+=3;
 	// cameraX+=5;
-	creat(initial)
+	creat(initial);
+	button.style.pointerEvents = "none";
+	button.style.opacity = 0.6;
 })
-
 
 
 
